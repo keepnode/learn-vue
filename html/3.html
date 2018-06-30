@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>测试vue过渡效果</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/bootstrap.js"></script>
+    <script src="../js/vue.js"></script>
+    <style>
+        .fade-enter-active,.fade-leave-active{
+            transition:opacity .5s;
+        }
+        .fade-enter,.fade-leave-to{
+            opacity:0;
+        }
+        .slide-fade-enter-active{
+            transition: all .3s ease;
+        }
+        .slide-fade-leave-active{
+            transition: all .8s cubic-bezier(1.0,0.5,0.8,1.0);
+        }
+        .slide-fade-enter,.slide-fade-leave-to{
+            -webkit-transform: translateX(10px);
+            -moz-transform: translateX(10px);
+            -ms-transform: translateX(10px);
+            -o-transform: translateX(10px);
+            transform: translateX(10px);
+            opacity: 0;
+        }
+        .bounce-enter-active{
+            animation:bounce-in .5s;
+        }
+        .bounce-leave-active{
+            animation: bounce-in .5s reverse;
+        }
+        @keyframes bounce-in {
+            0%{
+                -webkit-transform: scale(0);
+                -moz-transform: scale(0);
+                -ms-transform: scale(0);
+                -o-transform: scale(0);
+                transform: scale(0);
+            }
+            50% {
+                -webkit-transform: scale(1.5);
+                -moz-transform: scale(1.5);
+                -ms-transform: scale(1.5);
+                -o-transform: scale(1.5);
+                transform: scale(1.5);
+            }
+
+            100% {
+                -webkit-transform: scale(1);
+                -moz-transform: scale(1);
+                -ms-transform: scale(1);
+                -o-transform: scale(1);
+                transform: scale(1);
+            }
+        }
+        .component-fade-enter-active, .component-fade-leave-active {
+            transition: opacity .3s ease;
+        }
+        .component-fade-enter, .component-fade-leave-to
+            /* .component-fade-leave-active for below version 2.1.8 */ {
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="demo">
+        <button v-on:click="show=!show">
+            Toggle
+        </button>
+        <transition name="fade">
+            <p v-if="show">hello</p>
+        </transition>
+    </div>
+
+    <div id="demo2">
+        <button @click="show=!show">
+            Toggle render
+        </button>
+        <transition name="slide-fade">
+            <p v-if="show">hello</p>
+        </transition>
+    </div>
+
+    <div id="demo3">
+        <button @click="show=!show">
+            Toggle now
+        </button>
+        <transition name="bounce">
+            <p v-if="show">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris facilisis enim libero, at lacinia diam fermentum id. Pellentesque habitant morbi tristique senectus et netus.</p>
+        </transition>
+    </div>
+
+    <div id="demo4" class="demo">
+        <input v-model="view" type="radio" value="v-a" id="a" name="view"><label for="a">A</label>
+        <input v-model="view" type="radio" value="v-b" id="b" name="view"><label for="b">B</label>
+        <transition name="component-fade" mode="out-in">
+            <component v-bind:is="view"></component>
+        </transition>
+    </div>
+    <script>
+        var test=function () {
+          var bindDemo=function () {
+            new Vue({
+              el:'#demo',
+              data:{
+                show:true
+              }
+            });
+          }
+          var bindDemo2=function () {
+            new Vue({
+              el:'#demo2',
+              data:{
+                show:true
+              }
+            })
+          }
+          var bindDemo3=function(){
+            new Vue({
+              el:'#demo3',
+              data:{
+                show:true
+              }
+            })
+          }
+          var bindDemo4=function () {
+            new Vue({
+              el: '#demo4',
+              data: {
+                view: 'v-a'
+              },
+              components: {
+                'v-a': {
+                  template: '<div>Component A</div>'
+                },
+                'v-b': {
+                  template: '<div>Component B</div>'
+                }
+              }
+            })
+          }
+          return {
+            init:function () {
+                bindDemo();
+                bindDemo2();
+                bindDemo3();
+                bindDemo4();
+            }
+          }
+        }();
+
+        test.init();
+    </script>
+</body>
+</html>
