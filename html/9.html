@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>测试模板语法</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/bootstrap.js"></script>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div>v-on监听DOM事件</div>
+    <div id="app">
+        <span>Message:{{msg}}</span>
+        <input type="button" value="我变" v-on:click="change" />
+    </div>
+    <div>监听DOM事件缩写方式@事件名称</div>
+    <div id="app2">
+        <span>Message:{{msg}}</span>
+        <input type="button" value="我变" @click="change" />
+    </div>
+    <div>内联处理器</div>
+    <div id="app3">
+        <button v-on:click="say('hi')">Say Hi</button>
+        <button v-on:click="say('what')">Say What</button>
+    </div>
+    <div>内联处理器中访问原始的DOM事件。可以用特殊变量 $event 把它传入</div>
+    <div id="app4">
+        <button v-on:click="warn('表单尚未提交',$event)">提交</button>
+    </div>
+    <div>事件修饰符</div>
+    <div id="app5">
+        <p class="bg-success">.stop .prevent .capture .self .once .passive</p>
+        <div>
+            <!-- 阻止单击事件继续传播 -->
+            <a v-on:click.stop="doThis">阻止单击事件继续传播</a>
+            <!-- 提交事件不再重载页面 -->
+            <form v-on:submit.prevent="onSubmit">提交</form>
+            <!-- 修饰符可以串联 -->
+            <a v-on:click.stop.prevent="doThat"></a>
+            <!-- 只有修饰符 -->
+            <form v-on:submit.prevent></form>
+
+
+        </div>
+    </div>
+    <script type="text/javascript">
+        var app=new Vue({
+          el:'#app',
+          data:{
+            msg:'测试'
+          },
+          methods: {
+              change:function(event){
+                console.log('测试v-on监听DOM事件');
+                if(event){
+                  console.log('事件',event.target.tagName);
+                }
+                this.msg='我变变变';
+              }
+          }
+        })
+        var app2=new Vue({
+          el:'#app2',
+          data:{
+            msg:'测试2'
+          },
+          methods:{
+            change:function(event){
+              console.log('监听DOM事件缩写方式@事件名称');
+              if(event){
+                console.log('事件',event.target.tagName);
+              }
+              this.msg='我变变变2';
+            }
+          }
+        });
+        var app3=new Vue({
+          el:'#app3',
+          methods:{
+            say:function(message){
+              console.log('say '+message);
+              alert(message);
+            }
+          }
+        });
+        var app4=new Vue({
+          el:'#app4',
+          methods:{
+            warn:function(message,event){
+              //访问原生事件对象
+              if(event){
+                // preventDefault
+                // 取消事件的默认动作
+                event.preventDefault()
+              }
+              alert(message)
+            }
+          }
+        });
+    </script>
+</body>
+</html>
