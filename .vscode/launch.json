@@ -8,8 +8,14 @@
             "type": "chrome",
             "request": "launch",
             "name": "debug",
-            "url": "http://127.0.0.1:9000/index.html",
+            "url": "http://localhost/index.html",
             "webRoot": "${workspaceFolder}/html"
+        },
+        {
+            "name":"Launch for index",
+            "type": "chrome",
+            "request": "launch",
+            "file": "${workspaceFolder}/html/index.html"
         }
     ]
 }

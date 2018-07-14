@@ -14,6 +14,12 @@
     <div id="example">
         <p>原始消息：{{message}}</p>
         <p>计算过的翻转消息：{{reversedMessage}}</p>
+        <p>当前时间：{{now}}</p>
+    </div>
+    <div>
+        <h2>计算属性缓存vs方法</h2>
+        <p>不同点：计算属性是基于他们的依赖进行缓存的。计算属性只有在它的相关依赖发生改变时才会重新求值。</p>
+        <p>这意味着只要message 还没有发生改变，多次访问reversedMessage计算属性会立即返回之前的计算结果，而不必再次执行函数</p>
     </div>
     <script type="text/javascript">
         var app=new Vue({
@@ -25,9 +31,16 @@
                 //计算属性的 getter
                 reversedMessage:function(){
                     return this.message.split('').reverse().join('')
+                },
+                now:function(){
+                    return Date.now()
                 }
             }
         });
+
+        console.log('reversedMessage',app.reversedMessage);
+        app.message='Goodbye';
+        console.log('reversedMessage',app.reversedMessage);
     </script>
 </body>
 </html>
