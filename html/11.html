@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>侦听器</title>
+
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/bootstrap.js"></script>
+    <script src="../js/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+</head>
+<body>
+    <div id="watch-example">
+        <p>
+            问个问题：<input type="text" v-model="question">
+        </p>
+        <p>{{answer}}</p>
+    </div>
+    <script>
+        var watchExampleVM=new Vue({
+            el:'#watch-example',
+            data:{
+                question:'',
+                answer:'你还没有提问题，我怎么给你答案呢？'
+            },
+            watch:{
+                question:function(newQuestion,oldQuestion){
+                    this.answer='等待您的输入，直到停止。。。'
+                    this.debouncedGetAnswer()
+                }
+            },
+            created:function(){
+                this.debouncedGetAnswer=_.debounce(this.getAnswer,500);
+            },
+            methods:{
+                getAnswer:function(){
+                    if(this.question.indexOf('?')===-1){
+                        this.answer='问题通常包含一个问题说明。^_^'
+                        return
+                    }
+                    this.answer='思考中。。。'
+                    var vm=this
+                    axios.get('https://yesno.wtf/api').then(function(response){
+                        vm.answer=_.capitalize(response.data.answer)
+                    }).catch(function(error){
+                        vm.answer='错误！请求API失败。'+error
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>
