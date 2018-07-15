@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>绑定HTML Class</title>
+
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/bootstrap.js"></script>
+    <script src="../js/vue.js"></script>
+    <style type="text/css">
+        .active{
+            font-size:22px;
+            color:orange;
+        }
+        .text-danger{
+            background-color:#f9f900;
+        }
+    </style>
+</head>
+<body>
+    <div id="app1">
+        <div v-bind:class="{active:isActive}">测试 绑定class样式</div>
+    </div>
+    <div id="app2">
+        <div class="static" v-bind:class="{active:isActive,'text-danger':hasError}">测试 绑定多个class样式</div>
+    </div>
+    <div id="app3">
+        <div v-bind:class="classObject">
+            测试 绑定在数据内联模板里
+        </div>
+    </div>
+    <div id="app4">
+        <div v-bind:class="classObject">测试 通过计算属性绑定</div>
+    </div>
+    <div id="app5">
+        <div v-bind:class="[activeClass,errorClass]">测试 数组语法绑定class</div>
+    </div>
+    <div id="app6">
+        <div v-bind:class="[isActive?activeClass:errorClass]">测试 数组语法和三元运算符配合使用绑定class</div>
+    </div>
+    <script>
+        var app1=new Vue({
+            el:'#app1',
+            data:{
+                isActive:true
+            }
+        });
+        var app2=new Vue({
+            el:'#app2',
+            data:{
+                isActive:true,
+                hasError:true
+            }
+        });
+        var app3=new Vue({
+            el:'#app3',
+            data:{
+                classObject:{
+                    active:true,
+                    'text-danger':false
+                }
+            }
+        });
+        var app4=new Vue({
+            el:"#app4",
+            data:{
+                isActive:true,
+                error:null
+            },
+            computed:{
+                classObject:function(){
+                    return {
+                        active:this.isActive&&!this.error,
+                        'text-danger':this.error&&this.error.type==='fatal'
+                    }
+                }
+            }
+        });
+
+        var app5=new Vue({
+            el:"#app5",
+            data:{
+                activeClass:'active',
+                errorClass:'text-danger'
+            }
+        });
+
+        var app6=new Vue({
+            el:"#app6",
+            data:{
+                isActive:true,
+                activeClass:'active',
+                errorClass:'text-danger'
+            }
+        });
+    </script>
+
+</body>
+</html>
