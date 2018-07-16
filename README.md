@@ -14,3 +14,4 @@
 1. [测试计算属性](html/10.html)
 1. [测试侦听器](html/11.html)
 1. [测试HTML Class绑定](html/12.html)
+1. [测试内联样式绑定](html/13.html)
