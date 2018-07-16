@@ -41,6 +41,13 @@
     <div id="app6">
         <div v-bind:class="[isActive?activeClass:errorClass]">测试 数组语法和三元运算符配合使用绑定class</div>
     </div>
+    <div id="app7">
+        <div v-bind:class="[{active:isActive},errorClass]">测试 数组语法和对象语法配合使用绑定class</div>
+    </div>
+    <div id="app8">
+        <my-component class="baz boo">测试 组件上使用class</my-component>
+        <my-component v-bind:class="{active:isActive}">测试 组件上绑定class</my-component>
+    </div>
     <script>
         var app1=new Vue({
             el:'#app1',
@@ -94,6 +101,26 @@
                 isActive:true,
                 activeClass:'active',
                 errorClass:'text-danger'
+            }
+        });
+
+        var app7=new Vue({
+            el:'#app7',
+            data:{
+                isActive:true,
+                activeClass:'active',
+                errorClass:'text-danger'
+            }
+        });
+
+        Vue.component('my-component',{
+            template:'<p class="foo bar">Hi</p>'
+        });
+
+        var app8=new Vue({
+            el:'#app8',
+            data:{
+                isActive:true
             }
         });
     </script>
