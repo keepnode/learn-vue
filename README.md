@@ -16,3 +16,4 @@
 1. [测试HTML Class绑定](html/12.html)
 1. [测试内联样式绑定](html/13.html)
 1. [测试条件渲染](html/14.html)
+1. [测试列表渲染](html/15.html)
