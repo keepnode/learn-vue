@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>条件渲染</title>
+
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/bootstrap.js"></script>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app1">
+        <div>v-if v-else 用法</div>
+        <div v-if="Math.random()>0.5">
+            现在你看到我啦！
+        </div>
+        <div v-else>
+            现在你看不到我了~
+        </div>
+    </div>
+    <div id="app2">
+        <div>2.1.0 新增：v-if v-else-if v-else 用法</div>
+        <div v-if="type==='A'">A</div>
+        <div v-else-if="type==='B'">B</div>
+        <div v-else-if="type==='C'">C</div>
+        <div v-else>不是 A/B/C</div>
+    </div>
+    <div id="app3">
+        <div>用key管理可复用的元素</div>
+        <template v-if="loginType==='username'">
+            <label>用户名</label>
+            <input type="text" placeholder="请输入用户名" key="username-input">
+        </template>
+        <template v-else>
+            <label>邮箱</label>
+            <input type="text" placeholder="请输入邮箱" key="email-input">
+        </template>
+
+        <input type="button" value="切换" @click="toggleLoginType">
+    </div>
+    <script>
+        var app1=new Vue({
+            el:'#app1'
+        });
+
+        var app2=new Vue({
+            el:'#app2',
+            data:{
+                type:'A'
+            }
+        });
+
+        var app3=new Vue({
+            el:'#app3',
+            data:{
+                loginType:'username'
+            },
+            methods: {
+                toggleLoginType:function(){
+                    return this.loginType=this.loginType==='username'?'email':'username'
+                }
+            }
+        });
+    </script>
+</body>
+</html>
