@@ -87,7 +87,10 @@
         <strong>Vue.config.keyCodes.f1=122</strong>
     </div>
     <div id="example-6">
-
+        <h2>自动匹配按键修饰符(2.5.0新增)</h2>
+        <p>也可以直接将 KeyboardEvent.key 暴露的任意有效按键名转换为 kebab-case 来作为修饰符。</p>
+        <p><span class="line"><span class="tag">&lt;<span class="name">input</span> @<span class="attr">keyup.page-down</span>=<span class="string">"onPageDown"</span>&gt;</span></span></p>
+        <p>在一些按键(.esc 以及所有的方向键)在IE9中有不同的key值，如果想支持IE9,首选内置别名</p>
     </div>
     <script>
     var example1=new Vue({
