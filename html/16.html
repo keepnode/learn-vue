@@ -115,6 +115,25 @@
             <div @click.ctrl="doSomething">做些事情</div>
         </div>
     </div>
+    <div id="example-8">
+        <h2>.exact 修饰符(2.5.0新增)</h2>
+        <p>.exact 修饰符允许ni控制并精确的系统修饰符组合触发的事件</p>
+        <!--即使Alt和Shift被一同按下也会触发-->
+        <buton @click.ctrl="onClick">A</buton>
+        <!--有且只有Ctrl被按下的时候被触发-->
+        <button @click.ctrl.exact="onCtrlClick">A</button>
+        <!--没有任何系统修饰符被按下的时候才触发-->
+        <button @click.exact="onClick">A</button>
+    </div>
+    <div id="example-9">
+        <h2>鼠标按钮修饰符(2.2.0新增)</h2>
+        <ul>
+            <li>.left</li>
+            <li>.right</li>
+            <li>.middle</li>
+        </ul>
+        <p>这些修饰符会限制处理函数仅响应特定的鼠标按钮</p>
+    </div>
     <script>
     var example1=new Vue({
         el:'#example-1',
