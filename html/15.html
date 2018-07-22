@@ -44,6 +44,42 @@
             </li>
         </ul>
     </div>
+    <div>
+        <h2>数组更新检测</h2>
+        <p>Vue包含一组观察数组的变异方法，所以它们也将会触发视图更新。这些方法如下：</p>
+        <ul>
+            <li>push()</li>
+            <li>pop()</li>
+            <li>shift()</li>
+            <li>unshift()</li>
+            <li>splice()</li>
+            <li>sort()</li>
+            <li>reverse()</li>
+        </ul>
+        <div>
+            <input type="button" value="追加" onclick="itemPush()" />
+        </div>
+    </div>
+    <div id="example-4">
+        <h2>显示过滤/排序结果</h2>
+        <p>如果显示一个数组的过滤或排序副本，而不实际改变或重置原始数据。</p>
+        <p>在这种情况下，可以考虑使用计算属性。</p>
+        <ul>
+            <li v-for="n in evenNumbers">{{n}}</li>
+        </ul>
+        <p>在计算属性不适用的情况。可以使用method方法：</p>
+        <ul>
+            <li v-for="n in even(numbers)">{{n}}</li>
+        </ul>
+    </div>
+    <div id="example-5">
+        <h2>一段取值范围的v-for</h2>
+        <p>v-for 可以取整。在这种情况下，它将重复多次模板。</p>
+        <span v-for="n in 10">{{n}}</span>
+    </div>
+    <div id="example-6">
+        <h2>v-for的优先级比v-if更高</h2>
+    </div>
     <script>
         var example1 = new Vue({
             el: '#example-1',
@@ -81,6 +117,37 @@
                     age:30
                 }
             }
+        });
+
+        function itemPush(){
+            example2.items.push({
+                message:'追加测试'
+            });
+        }
+
+        var example4=new Vue({
+            el:'#example-4',
+            data:{
+                numbers:[1,2,3,4,5]
+            },
+            computed:{
+                evenNumbers:function(){
+                    return this.numbers.filter(function(number){
+                        return number%2===0
+                    });
+                }
+            },
+            methods:{
+                even:function(numbers){
+                    return numbers.filter(function(number){
+                        return number%2===0
+                    });
+                }
+            }
+        });
+
+        var example5=new Vue({
+            el:'#example-5'
         });
     </script>
 </body>
