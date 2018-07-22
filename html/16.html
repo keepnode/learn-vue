@@ -68,6 +68,25 @@
     </div>
 
     <div id="example-5">
+        <h2>按键修饰符</h2>
+        <p>监听键盘事件时，需要检查常见的键值。如：</p>
+        <input v-on:keyup.13="submit">
+        <p>记住所有keycode比较困难。Vue为常用的按键提供了别名</p>
+        <ul>
+            <li>.enter</li>
+            <li>.tab</li>
+            <li>.delete(捕获“删除”和“退格”键)))</li>
+            <li>.esc</li>
+            <li>.space</li>
+            <li>.up</li>
+            <li>.down</li>
+            <li>.left</li>
+            <li>.right</li>
+        </ul>
+        <p>可用通过全局 config.keyCodes 对象自定义按键修饰符别名：</p>
+        <strong>Vue.config.keyCodes.f1=122</strong>
+    </div>
+    <div id="example-6">
 
     </div>
     <script>
