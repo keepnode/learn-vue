@@ -92,6 +92,29 @@
         <p><span class="line"><span class="tag">&lt;<span class="name">input</span> @<span class="attr">keyup.page-down</span>=<span class="string">"onPageDown"</span>&gt;</span></span></p>
         <p>在一些按键(.esc 以及所有的方向键)在IE9中有不同的key值，如果想支持IE9,首选内置别名</p>
     </div>
+    <div id="example-7">
+        <h2>系统修饰键(2.1.0新增)</h2>
+        <ul>
+            <li>.ctrl</li>
+            <li>.alt</li>
+            <li>.shift</li>
+            <li>.meta</li>
+        </ul>
+        <p>
+            注意：在mac系统键盘中，meta对应command键(⌘)。
+            在 Windows 系统键盘 meta 对应 Windows 徽标键 (⊞)。
+            在 Sun 操作系统键盘上，meta 对应实心宝石键 (◆)。
+            在其他特定键盘上，尤其在 MIT 和 Lisp 机器的键盘、以及其后继产品，
+            比如 Knight 键盘、space-cadet 键盘，meta 被标记为“META”。
+            在 Symbolics 键盘上，meta 被标记为“META”或者“Meta”。
+        </p>
+        <div>
+            <!-- alt+c-->
+            <input @keyup.alt.67="clear" />
+            <!-- ctrl+click-->
+            <div @click.ctrl="doSomething">做些事情</div>
+        </div>
+    </div>
     <script>
     var example1=new Vue({
         el:'#example-1',
