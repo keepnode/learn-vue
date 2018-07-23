@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +12,7 @@
     <script src="../js/bootstrap.js"></script>
     <script src="../js/vue.js"></script>
 </head>
+
 <body>
     <h1>基础用法</h1>
     <div id="example-1">
@@ -39,27 +41,86 @@
         <label for="mike">Mike</label>
         <br>
         <span>Checked names: {{ checkedNames }}</span>
+        <h3>单选按钮</h3>
+        <input type="radio" id="one" value="one" v-model="picked">
+        <label for="one">One</label>
+        <input type="radio" id="two" value="two" v-model="picked">
+        <label for="two">Two</label>
+        <br>
+        <span>选中：{{picked}}</span>
+        <h3>下拉选择框</h3>
+        <h4>单选</h4>
+        <select v-model="selected">
+            <option disabled value="">请选择</option>
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+        </select>
+        <span>选中的值是：{{selected}}</span>
+        <p class="tip">
+            如果
+            <code>v-model</code>
+            表达式的初始值未能匹配任何选项，
+            <code>&lt;select&gt;</code>
+            元素将被渲染为“未选中”状态。在 iOS 中，这会使用户无法选择第一个选项。 因为这样的情况下，iOS 不会触发 change 事件。 因此，更推荐像上面这样提供一个值为空的禁用选项。
+        </p>
+    </div>
+    <div id="example-4">
+        <select v-model="selected" multiple style="width:50px;">
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+        </select>
+        <br>
+        <span>选中：{{selected}}</span>
+    </div>
+    <div id="example-5">
+        <p>使用<code>v-for</code>动态渲染</p>
+        <select v-model="selected">
+            <option v-for="option in options" v-bind:value="option.value">{{option.text}}</option>
+        </select>
+        <span>选中值：{{selected}}</span>
     </div>
     <script>
-    var example1=new Vue({
-        el:'#example-1',
-        data:{
-            message:''
-        }
-    });
-    var example2=new Vue({
-        el:'#example-2',
-        data:{
-            message:''
-        }
-    });
-    var example3=new Vue({
-        el:'#example-3',
-        data:{
-            checked:'',
-            checkedNames:[]
-        }
-    });
+        var example1 = new Vue({
+            el: '#example-1',
+            data: {
+                message: ''
+            }
+        });
+        var example2 = new Vue({
+            el: '#example-2',
+            data: {
+                message: ''
+            }
+        });
+        var example3 = new Vue({
+            el: '#example-3',
+            data: {
+                checked: '',
+                checkedNames: [],
+                picked: '',
+                selected: ''
+            }
+        });
+        var example4 = new Vue({
+            el: '#example-4',
+            data: {
+                selected: []
+            }
+        });
+        var example5=new Vue({
+            el:'#example-5',
+            data:{
+                selected:'A',
+                options:[
+                    {text:'One',value:'A'},
+                    {text:'Two',value:'B'},
+                    {text:'Three',value:'C'}
+                ]
+            }
+        });
     </script>
 </body>
+
 </html>
