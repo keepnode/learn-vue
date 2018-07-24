@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件基础</title>
+
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/bootstrap.js"></script>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="components-demo">
+        <h2>组件复用</h2>
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+        <p><code>data</code>必须是一个函数</p>
+        <h2>通过<code>Prop</code>向子组件传递数据</h2>
+        <blog-post title="测试1"></blog-post>
+        <blog-post title="测试2"></blog-post>
+        <blog-post title="测试3"></blog-post>
+        <h2>通过<code>v-for</code>遍历组件</h2>
+        <blog-post v-for="post in posts" v-bind:key="post.id" v-bind:title="post.title"></blog-post>
+    </div> 
+    <script>
+        Vue.component('button-counter',{
+            data:function(){
+                return {
+                    count:0
+                }
+            },
+            template:'<button v-on:click="count++">点击{{count}}次</button>'
+        });
+        Vue.component('blog-post',{
+            props:['title'],
+            template:'<h3>{{title}}</h3>'
+        });
+        new Vue({
+            el:'#components-demo',
+            data:{
+                posts:[
+                    {id:1,title:'测试4'},
+                    {id:2,title:'测试5'},
+                    {id:3,title:'测试6'}
+                ]
+            }
+        });
+    </script>
+</body>
+</html>
