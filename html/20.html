@@ -24,7 +24,29 @@
         <blog-post title="测试3"></blog-post>
         <h2>通过<code>v-for</code>遍历组件</h2>
         <blog-post v-for="post in posts" v-bind:key="post.id" v-bind:title="post.title"></blog-post>
-    </div> 
+    </div>
+    <div id="demo2">
+        <h2>当组件需要多个参数时，可以接收一个对象作为根元素，方便管理好书写</h2>
+        <blog-post2 v-for="post in posts" v-bind:key="post.id" v-bind:post="post"></blog-post2>
+    </div>
+    <div id="demo3">
+        <h2>通过事件向父组件发送消息</h2>
+        <h3>$emit方法传递事件给父级</h3>
+        <div :style="{fontSize:postFontSize+'em'}">
+            <blog-post3 v-for="post in posts" v-bind:key="post.id" v-bind:post="post" v-on:enlarge-text="postFontSize+=$event"></blog-post3>
+        </div>
+        <div :style="{fontSize:postFontSize+'em'}">
+            <blog-post3 v-for="post in posts" v-bind:key="post.id" v-bind:post="post" v-on:enlarge-text="onEnlargeText"></blog-post3>
+        </div>
+    </div>
+    <div id="demo4">
+        <h2>通过插槽分发内容</h2>
+        <h3><code> &lt;slot&gt;</code>表示插槽，类似内容占位符</h3>
+        <alert-box>
+            这是什么鬼？
+        </alert-box>
+    </div>
+    
     <script>
         Vue.component('button-counter',{
             data:function(){
@@ -47,6 +69,63 @@
                     {id:3,title:'测试6'}
                 ]
             }
+        });
+
+        Vue.component('blog-post2',{
+            props:['post'],
+            template:`
+            <div class="blog-post">
+                <h3>{{ post.title }}</h3>
+                <div v-html="post.content"></div>
+            </div>
+            `
+        });
+        new Vue({
+            el:'#demo2',
+            data:{
+                posts:[
+                    {id:1,title:'测试4'},
+                    {id:2,title:'测试5'},
+                    {id:3,title:'测试6'}
+                ]
+            }
+        });
+        Vue.component('blog-post3',{
+            props:['post'],
+            template:`
+            <div class="blog-post">
+                <h3>{{post.title}}</h3>
+                <button v-on:click="$emit('enlarge-text',0.1)">点我变大</button>
+                <div v-html="post.content"></div>
+            </div>
+            `
+        });
+        new Vue({
+            el:'#demo3',
+            data:{
+                posts:[
+                    {id:1,title:'测试4',content:'测试4的内容'},
+                    {id:2,title:'测试5',content:'测试5的内容'},
+                    {id:3,title:'测试6',content:'测试6的内容'}
+                ],
+                postFontSize:1
+            },
+            methods:{
+                onEnlargeText:function(enlargeAmount){
+                    this.postFontSize+=enlargeAmount
+                }
+            }
+        });
+        Vue.component('alert-box',{
+            template:`
+            <div class="demo-alert-box">
+                <strong>Error!</strong>
+                <slot></slot>
+            </div>
+            `
+        });
+        new Vue({
+            el:'#demo4'
         });
     </script>
 </body>
