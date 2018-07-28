@@ -6,11 +6,52 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>插槽用法</title>
     <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="../js/jquery-3.3.1.min.js"></script>
     <script src="../js/bootstrap.js"></script>
     <script src="../js/vue.js"></script>
 </head>
 <body>
-    
+    <h1>插槽：我的理解相当于占位符，类似html标签的内容</h1>
+    <div id="example1">
+        <h2>例子1：插槽没有html的版本</h2>
+        <navigation-link url="/profile">
+            测试
+        </navigation-link>
+        <h2>例子2：插槽有html的版本</h2>
+        <navigation-link url="profile">
+            <!--添加一个Font Awesone图标-->
+            <span class="fa fa-user"></span>
+            测试
+        </navigation-link>
+        <h2>例子3：插槽有其他组件版本</h2>
+        <navigation-link url="profile">
+            <font-awesome-icon name="user-circle"></font-awesome-icon>
+            测试
+        </navigation-link>
+    </div>
+    <div id="example2">
+        <h2>具名插槽</h2>
+        
+    </div>
+    <script>
+        Vue.component('navigation-link',{
+            props:['url'],
+            template:`
+            <a v-bind:href="url" class="nav-link">
+                <slot></slot>
+            </a>
+            `
+        });
+        Vue.component('font-awesome-icon',{
+            props:['name'],
+            template:`
+            <span v-bind:class="['fa','fa-'+name]"></span>
+            `
+        });
+        var app1=new Vue({
+            el:'#example1'
+        });
+    </script>
 </body>
 </html>
