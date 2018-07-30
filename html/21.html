@@ -57,6 +57,15 @@
             Save
         </submit-button>
     </div>
+    <div id="example4">
+        <h2>作用域插槽</h2>
+        <todo-list v-bind:todos="todos">
+            <template slot-scope="slotProps">
+                <span v-if="slotProps.todo.isComplete">✓</span>
+                {{slotProps.todo.text}}
+            </template>
+        </todo-list>
+    </div>
     <script>
         Vue.component('navigation-link',{
             props:['url'],
@@ -96,6 +105,18 @@
             </button>
             `
         });
+        Vue.component('todo-list',{
+            props:['todos'],
+            template:`
+            <ul>
+                <li v-for="todo in todos" v-bind:key="todo.id">
+                    <slot v-bind:todo="todo">
+                        {{todo.text}}
+                    </slot>
+                </li>
+            </ul>
+            `
+        });
         var app1=new Vue({
             el:'#example1'
         });
@@ -104,6 +125,16 @@
         });
         var app3=new Vue({
             el:'#example3'
+        });
+        var app4=new Vue({
+            el:'#example4',
+            data:{
+                todos:[
+                    {text:'学习 JavaScript',isComplete:true},
+                    {text:'学习 vue',isComplete:false},
+                    {text:'整个牛项目',isComplete:true}
+                ]
+            }
         });
     </script>
 </body>
