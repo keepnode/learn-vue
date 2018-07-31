@@ -58,13 +58,17 @@
         </submit-button>
     </div>
     <div id="example4">
-        <h2>作用域插槽</h2>
+        <h2>作用域插槽(2.1.0+)</h2>
         <todo-list v-bind:todos="todos">
             <template slot-scope="slotProps">
                 <span v-if="slotProps.todo.isComplete">✓</span>
                 {{slotProps.todo.text}}
             </template>
         </todo-list>
+    </div>
+    <div id="example5">
+        <h2>解构<code>slot-scope</code></h2>
+        
     </div>
     <script>
         Vue.component('navigation-link',{
